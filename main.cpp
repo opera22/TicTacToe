@@ -9,8 +9,6 @@ bool checkForWin(char board[]);
 
 int main() {
 
-
-    //std::map<int, std::string> board;
     char board[9] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
     cout << "Welcome to TicTacToe!" << endl;
