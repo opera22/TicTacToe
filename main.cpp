@@ -11,7 +11,7 @@ int main() {
 
 
     //std::map<int, std::string> board;
-    char board[9] = {'X', 'O', ' ', ' ', ' ', ' ', 'O', ' ', 'X'};
+    char board[9] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
     cout << "Welcome to TicTacToe!" << endl;
     cout << "---------------------" << endl;
@@ -21,25 +21,21 @@ int main() {
 // 2 means someone won the game
 // 1 means it's a draw
 // 0 means continue loop
-    bool result = 0;
+    int result = 0;
     while (result == 0) {
-
         result = gameLoop(board);
-
     }
-    
+
     if (result == 1) {
-
         cout << endl;
-        cout << "~~~~~~It's a draw!~~~~~~" << endl;
-
+        cout << "~~~~~~It's a draw!~~~~~~\n" << endl;
     }
     else if (result == 2) {
-
         cout << endl;
-        cout << "~~~~~~We have a winner!~~~~~~" << endl;
-
+        cout << "~~~~~~We have a winner!~~~~~~\n" << endl;
     }
+
+    drawBoard(board);
 
     return 0;
 
@@ -47,7 +43,33 @@ int main() {
 
 bool checkForWin(char board[]) {
 
+    int possibleWins[9][3] = { 
+        {0,1,2},
+        {3,4,5},
+        {6,7,8},
+        {0,3,6},
+        {1,4,7},
+        {2,5,8},
+        {0,4,8},
+        {2,4,6}
+    };
 
+    for (int i = 0; i < 8; i++) {
+
+        int possibleWinsRow[3];
+        for (int j = 0; j < 3; j++){
+            possibleWinsRow[j] = possibleWins[i][j];
+        }
+
+        int s1 = possibleWinsRow[0];
+        int s2 = possibleWinsRow[1];
+        int s3 = possibleWinsRow[2];
+
+        if (board[s1] != ' ' && board[s1] == board[s2] && board[s2] == board[s3]) {
+            return true;
+        }
+
+    }
 
     return false;
 }
@@ -92,7 +114,7 @@ int gameLoop(char board[]) {
     if (checkForWin(board) == true) {
         return 2;
     }
-    if (boardIsFull(board) == true) {
+    else if (boardIsFull(board) == true) {
         return 1;
     }
     drawBoard(board);
@@ -107,7 +129,7 @@ int gameLoop(char board[]) {
     if (checkForWin(board) == true) {
         return 2;
     }
-    if (boardIsFull(board) == true) {
+    else if (boardIsFull(board) == true) {
         return 1;
     }
     drawBoard(board);
